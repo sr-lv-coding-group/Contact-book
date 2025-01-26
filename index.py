@@ -43,3 +43,30 @@ def get_contacts_by_age(contacts):
 sort_contacts = get_contacts_by_age(contacts)
 for contact in sort_contacts:
   print("Name: " + contact['Name'] + ", Age: " + str(contact['Age']))
+
+
+
+print("\nTESTING GET PHONE NUMBER BY NAME")
+
+# searches through a list for the specified name and returns their phone number
+def get_phone_number_by_name(contacts, name):
+  for contact_id, contact_info in contacts.items():
+    if contact_info['Name'].lower() == name.lower():
+      print(f"Name: {contact_info['Name']}, Phone: {contact_info['PhoneNumber']}")
+
+# usage
+get_phone_number_by_name(contacts, "Daniel")
+
+print("\nTESTING PRINT SORTED CONTACT LIST BY NAME")
+
+# returns a sorted contact list in alphabetically order
+def sort_contacts_by_name(contacts):
+  sorted_contact_details = sorted(contacts.items(), key=lambda item: item[1]["Name"].lower())
+  return {contact_id: details for contact_id, details in sorted_contact_details}
+
+# usage
+sorted_contacts = sort_contacts_by_name(contacts)
+for contact_id, details in sorted_contacts.items():
+  print(f"Name: {details['Name']}, Phone: {details['PhoneNumber']}")
+
+print()
