@@ -7,7 +7,7 @@ contacts = {
     },
     
     2: {
-        "Name": "Denis",
+        "Name": "Dennis",
         "Age": 27,
         "PhoneNumber": 1234567890,
         "Location": "New York"
