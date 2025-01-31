@@ -1,30 +1,8 @@
 try:
   from contact import contacts
-  print(contacts)
+  #print(contacts)
 except ModuleNotFoundError:
   print("Error: contacts.py file not found.")
-
-# contacts = {
-#     1: {
-#         "Name": "Daniel",
-#         "Age": 35,
-#         "PhoneNumber": 5555551212,
-#         "Location": "Las Vegas"
-#     },
-    
-#     2: {
-#         "Name": "Dennis",
-#         "Age": 27,
-#         "PhoneNumber": 1234567890,
-#         "Location": "New York"
-#     },
-#     3: {
-#         "Name": "Keegan",
-#         "Age": 39,
-#         "PhoneNumber": 4569876543,
-#         "Location": "New York"
-#     },
-# }
 
 def find_contact(contacts, name):
   for contact_id, contact_info in contacts.items():
@@ -89,3 +67,64 @@ for contact_id, details in sorted_contacts.items():
   print(f"Name: {details['Name']}, Phone: {details['PhoneNumber']}")
 
 print()
+
+def main_menu():
+    print("\nSelect an option:")
+    print("1. Find a contact")
+    print("2. Get all names in contact list")
+    print("3. Get all contacts sorted by age")
+    print("4. Get phone number by name")
+    print("5. Exit")
+
+    choice = input("Enter your choice (1-5): ")
+
+    if choice == "1":
+        name_to_search = input("Enter the name to search for: ")
+        found_contact = find_contact(contacts, name_to_search)
+        if found_contact:
+            print(f"Contact found for {name_to_search}:")
+            for key, value in found_contact.items():
+                print(f"{key}: {value}")
+        else:
+            print(f"No contact found for {name_to_search}")
+            
+    if choice == "1":
+      name_to_search = input("Enter the name to search for: ")
+      found_contact = find_contact(contacts, name_to_search)
+      if found_contact:
+          print(f"Contact found for {name_to_search}:")
+          for key, value in found_contact.items():
+              print(f"{key}: {value}")
+      else:
+            print(f"No contact found for {name_to_search}")
+
+    elif choice == "2":
+        names_list = get_names(contacts)
+        print("Names in contact list:")
+        for name in names_list:
+            print(name)
+
+    elif choice == "3":
+        sorted_contacts = get_contacts_by_age(contacts)
+        print("Contacts sorted by age:")
+        for contact in sorted_contacts:
+            print(f"Name: {contact['Name']}, Age: {contact['Age']}")
+
+    elif choice == "4":
+        name_to_search = input("Enter the name to get the phone number: ")
+        phone_number = get_phone_number_by_name(contacts, name_to_search)
+        if phone_number:
+            print(f"Phone number for {name_to_search}: {phone_number}")
+        else:
+            print(f"No phone number found for {name_to_search}")
+
+    elif choice == "5":
+        print("Exiting program...")
+        exit()
+
+    else:
+        print("Invalid choice! Please select a number between 1 and 5.")
+
+# Running the main menu
+while True:
+    main_menu()
