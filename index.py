@@ -25,7 +25,7 @@ def find_contact(contacts, name):
   #  print(key + ": " + str(value))
 #else:
  # print("No contact found for", name_to_search)
-
+#Imputs Name returns contact card
 def get_names(contacts):
   names = []
   for contact_id, contact_info in contacts.items():
@@ -34,7 +34,7 @@ def get_names(contacts):
 
 #names_list = get_names(contacts)
 #print(names_list)
-
+#sorts contacts by age
 def get_contacts_by_age(contacts):
   def age_id(contact):
     return contact["Age"]
@@ -49,7 +49,7 @@ def get_contacts_by_age(contacts):
 
 #print("\nTESTING GET PHONE NUMBER BY NAME")
 
-# searches through a list for the specified name and returns their phone number
+#searches through a list for the specified name and returns their phone number
 def get_phone_number_by_name(contacts, name):
   for contact_id, contact_info in contacts.items():
     if contact_info['Name'].lower() == name.lower():
@@ -73,7 +73,7 @@ def sort_contacts_by_name(contacts):
   #print(f"Name: {details['Name']}, Phone: {details['PhoneNumber']}")
 
 #print()
-
+#CLI menue of options for user to input
 def main_menu():
     print("\nSelect an option:")
     print("1. Find a contact")
