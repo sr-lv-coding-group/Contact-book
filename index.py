@@ -1,8 +1,13 @@
+import time
 try:
   from contact import contacts
-  #print(contacts)
+  print("Test to show all contacts in db file")
+  print(contacts)
 except ModuleNotFoundError:
   print("Error: contacts.py file not found.")
+
+#pause between showing file names and running script  
+time.sleep(2)
 
 def find_contact(contacts, name):
   for contact_id, contact_info in contacts.items():
@@ -10,26 +15,25 @@ def find_contact(contacts, name):
       return contact_info
   return None
 
-name_to_search = input("Enter the name to search for: ")
+#name_to_search = input("Enter the name to search for: ")
 
-found_contact = find_contact(contacts, name_to_search)
+#found_contact = find_contact(contacts, name_to_search)
 
-if found_contact:
-  print("Contact found for", name_to_search)
-  for key, value in found_contact.items():
-    print(key + ": " + str(value))
-else:
-  print("No contact found for", name_to_search)
+#if found_contact:
+ # print("Contact found for", name_to_search)
+ # for key, value in found_contact.items():
+  #  print(key + ": " + str(value))
+#else:
+ # print("No contact found for", name_to_search)
 
 def get_names(contacts):
-  
   names = []
   for contact_id, contact_info in contacts.items():
     names.append(contact_info["Name"])
   return names
 
-names_list = get_names(contacts)
-print(names_list)
+#names_list = get_names(contacts)
+#print(names_list)
 
 def get_contacts_by_age(contacts):
   def age_id(contact):
@@ -37,24 +41,26 @@ def get_contacts_by_age(contacts):
   sort_contacts = sorted(contacts.values(), key=age_id)
   return sort_contacts
 
-sort_contacts = get_contacts_by_age(contacts)
-for contact in sort_contacts:
-  print("Name: " + contact['Name'] + ", Age: " + str(contact['Age']))
+#sort_contacts = get_contacts_by_age(contacts)
+#for contact in sort_contacts:
+  #print("Name: " + contact['Name'] + ", Age: " + str(contact['Age']))
 
 
 
-print("\nTESTING GET PHONE NUMBER BY NAME")
+#print("\nTESTING GET PHONE NUMBER BY NAME")
 
 # searches through a list for the specified name and returns their phone number
 def get_phone_number_by_name(contacts, name):
   for contact_id, contact_info in contacts.items():
     if contact_info['Name'].lower() == name.lower():
-      print(f"Name: {contact_info['Name']}, Phone: {contact_info['PhoneNumber']}")
+      return contact_info['PhoneNumber']
+    return None
+      #print(f"Name: {contact_info['Name']}, Phone: {contact_info['PhoneNumber']}")
 
 # usage
 get_phone_number_by_name(contacts, "Daniel")
 
-print("\nTESTING PRINT SORTED CONTACT LIST BY NAME")
+#print("\nTESTING PRINT SORTED CONTACT LIST BY NAME")
 
 # returns a sorted contact list in alphabetically order
 def sort_contacts_by_name(contacts):
@@ -62,11 +68,11 @@ def sort_contacts_by_name(contacts):
   return {contact_id: details for contact_id, details in sorted_contact_details}
 
 # usage
-sorted_contacts = sort_contacts_by_name(contacts)
-for contact_id, details in sorted_contacts.items():
-  print(f"Name: {details['Name']}, Phone: {details['PhoneNumber']}")
+#sorted_contacts = sort_contacts_by_name(contacts)
+#for contact_id, details in sorted_contacts.items():
+  #print(f"Name: {details['Name']}, Phone: {details['PhoneNumber']}")
 
-print()
+#print()
 
 def main_menu():
     print("\nSelect an option:")
