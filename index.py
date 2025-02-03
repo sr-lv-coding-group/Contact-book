@@ -2,6 +2,7 @@ import time
 try:
   from contact import contacts
   print("Test to show all contacts in db file")
+  time.sleep(2)
   print(contacts)
 except ModuleNotFoundError:
   print("Error: contacts.py file not found.")
@@ -10,10 +11,10 @@ except ModuleNotFoundError:
 time.sleep(2)
 
 def find_contact(contacts, name):
-  for contact_id, contact_info in contacts.items():
-    if contact_info["Name"].lower() == name.lower():
-      return contact_info
-  return None
+   for contact in contacts.values():  # We only need the contact information 
+    if contact["Name"].lower() == name.lower(): 
+      return contact
+    return None
 
 #name_to_search = input("Enter the name to search for: ")
 
@@ -36,10 +37,7 @@ def get_names(contacts):
 #print(names_list)
 #sorts contacts by age
 def get_contacts_by_age(contacts):
-  def age_id(contact):
-    return contact["Age"]
-  sort_contacts = sorted(contacts.values(), key=age_id)
-  return sort_contacts
+  return sorted(contacts.values(), key=lambda contact: contact["Age"])
 
 #sort_contacts = get_contacts_by_age(contacts)
 #for contact in sort_contacts:
