@@ -16,6 +16,28 @@ def find_contact(contacts, name):
       return contact
     return None
 
+
+def get_contacts_by_location(contacts):
+  '''Get a list of contacts that match the specified location
+
+  Returns:
+    list: A list of contacts.
+
+  '''
+
+  location = input("Location: ")  # request location
+
+  filtered_contacts = {k: v for k, v in contacts.items() if v["Location"].lower() == location.lower()}  # filter contacts by location
+
+  # print contact details
+  for contact_id, contact_details in filtered_contacts.items():
+    for contact_field, contact_detail in contact_details.items():
+      print(f"{contact_field}: {contact_detail}")
+    print()
+
+get_contacts_by_location(contacts)
+exit()
+
 #name_to_search = input("Enter the name to search for: ")
 
 #found_contact = find_contact(contacts, name_to_search)
