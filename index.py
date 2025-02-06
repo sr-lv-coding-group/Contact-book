@@ -21,22 +21,44 @@ def get_contacts_by_location(contacts):
   '''Get a list of contacts that match the specified location
 
   Returns:
-    list: A list of contacts.
+    dict: A dictionary of contacts.
 
   '''
 
   location = input("Location: ")  # request location
-
   filtered_contacts = {k: v for k, v in contacts.items() if v["Location"].lower() == location.lower()}  # filter contacts by location
 
   # print contact details
+  print()
   for contact_id, contact_details in filtered_contacts.items():
     for contact_field, contact_detail in contact_details.items():
       print(f"{contact_field}: {contact_detail}")
     print()
 
-get_contacts_by_location(contacts)
-exit()
+#get_contacts_by_location(contacts)
+#exit()
+
+def get_contacts_by_number(contacts):
+  '''Get a list of contacts that match the specified number
+
+  Returns:
+    dict: A dictionary of contacts.
+
+  '''
+
+  number = input("Number: ")  # request number
+  filtered_contacts = {k: v for k, v in contacts.items() if v["PhoneNumber"] == int(number)}  # filter contacts by number
+
+  # print contact details
+  print()
+  for contact_id, contact_details in filtered_contacts.items():
+    for contact_field, contact_detail in contact_details.items():
+      print(f"{contact_field}: {contact_detail}")
+    print()
+
+#get_contacts_by_number(contacts)
+#exit()
+
 
 #name_to_search = input("Enter the name to search for: ")
 
