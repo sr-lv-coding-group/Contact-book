@@ -23,3 +23,12 @@ Usage:
 The application will provide a menu with different options.
 Select the desired option to add, view, search, edit, or delete contacts.
 Follow the on-screen instructions for each operation.
+
+---
+
+### Connecting to the database with Python's sqlite3 library
+
+`import sqlite3
+con = sqlite3.connect("contacts.db")`
+
+
