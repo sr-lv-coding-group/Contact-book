@@ -28,7 +28,11 @@ Follow the on-screen instructions for each operation.
 
 ### Connecting to the database with Python's sqlite3 library
 
-`import sqlite3
-con = sqlite3.connect("contacts.db")`
+`import sqlite3`  
+`con = sqlite3.connect("contacts.db")`  
+`cur = con.cursor()`  
+`cur.execute("SELECT * FROM CONTACTS")`
+`res.fetchall()`
 
+recommended reading: https://docs.python.org/3/library/sqlite3.html
 
