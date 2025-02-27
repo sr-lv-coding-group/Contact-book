@@ -1,177 +1,133 @@
 import time
+import functions as func
+
 try:
   from contact import contacts
   print("Test to show all contacts in db file")
-  time.sleep(2)
-  print(contacts)
+  print(contacts) # debug
+  print()
 except ModuleNotFoundError:
   print("Error: contacts.py file not found.")
+  print()
 
-#pause between showing file names and running script  
-time.sleep(2)
 
-def find_contact(contacts, name):
-   for contact in contacts.values():  # We only need the contact information 
-    if contact["Name"].lower() == name.lower(): 
-      return contact
-    return None
+time.sleep(2) #pause between showing file names and running script  
+
+
+def sort_contacts_by_age(contacts):
+  """Return a dict list view of contact details sorted by age from youngest to oldest."""
+
+  return sorted(contacts.values(), key=lambda contact: contact["Age"])
+
+
+def sort_contacts_by_name(contacts):
+  """Return a dict list view of contact details sorted by name in alphabetical order."""
+
+  return sorted(contacts.values(), key=lambda contact: contact["Name"])
+
+
+def get_contacts_by_name(contacts):
+  """Return a dict list view of contact details that matches the given name"""
+  
+  name = input("Enter the name to search for: ")  # request name
+  print()
+
+  filtered_contacts = {k: v for k, v in contacts.items() if v["Name"].lower() == name.lower()}  # filter contacts by name
+
+  return filtered_contacts.values()
 
 
 def get_contacts_by_location(contacts):
-  '''Get a list of contacts that match the specified location
+  """Return a dict list view of contact details that matches the given location"""
 
-  Returns:
-    dict: A dictionary of contacts.
+  location = input("Enter the location to search for: ")  # request location
+  print()
 
-  '''
-
-  location = input("Location: ")  # request location
   filtered_contacts = {k: v for k, v in contacts.items() if v["Location"].lower() == location.lower()}  # filter contacts by location
 
-  # print contact details
-  print()
-  for contact_id, contact_details in filtered_contacts.items():
-    for contact_field, contact_detail in contact_details.items():
-      print(f"{contact_field}: {contact_detail}")
-    print()
+  return filtered_contacts.values()
 
-#get_contacts_by_location(contacts)
-#exit()
 
 def get_contacts_by_number(contacts):
-  '''Get a list of contacts that match the specified number
+  """Return a dict list view of contact details that matches the given number"""
 
-  Returns:
-    dict: A dictionary of contacts.
-
-  '''
-
-  number = input("Number: ")  # request number
-  filtered_contacts = {k: v for k, v in contacts.items() if v["PhoneNumber"] == int(number)}  # filter contacts by number
-
-  # print contact details
+  number = input("Enter the phone number to search for: ")  # request phone number
   print()
-  for contact_id, contact_details in filtered_contacts.items():
-    for contact_field, contact_detail in contact_details.items():
-      print(f"{contact_field}: {contact_detail}")
-    print()
 
-#get_contacts_by_number(contacts)
-#exit()
+  filtered_contacts = {k: v for k, v in contacts.items() if v["PhoneNumber"] == int(number)}  # filter contacts by phone number
+
+  return filtered_contacts.values()
 
 
-#name_to_search = input("Enter the name to search for: ")
+"""List of options containing methods; all functions' only parameter is the contact list.
 
-#found_contact = find_contact(contacts, name_to_search)
+  Parameters:
+    dict: contact list
 
-#if found_contact:
- # print("Contact found for", name_to_search)
- # for key, value in found_contact.items():
-  #  print(key + ": " + str(value))
-#else:
- # print("No contact found for", name_to_search)
-#Imputs Name returns contact card
-def get_names(contacts):
-  names = []
-  for contact_id, contact_info in contacts.items():
-    names.append(contact_info["Name"])
-  return names
+"""
+options = {
+  0: (exit, "Exit"),
+  
+  # sorting
+  1: (sort_contacts_by_age, "Get all contacts; sorted by age (youngest to oldest)"),
+  2: (sort_contacts_by_name, "Get all contacts; sorted by name (alphabetically)"),
+  
+  # one additional input
+  3: (get_contacts_by_location, "Look up contacts by location"),
+  4: (get_contacts_by_name, "Look up contacts by name"),
+  5: (get_contacts_by_number, "Look up contacts by phone number"),
 
-#names_list = get_names(contacts)
-#print(names_list)
-#sorts contacts by age
-def get_contacts_by_age(contacts):
-  return sorted(contacts.values(), key=lambda contact: contact["Age"])
+  # one additional input; specific result
+  6: (get_contacts_by_name, "Get phone number by name", "PhoneNumber"),
+  
+  # sorting; specific result
+  7: (sort_contacts_by_name, "Get all names in contact list", "Name"),
+}
 
-#sort_contacts = get_contacts_by_age(contacts)
-#for contact in sort_contacts:
-  #print("Name: " + contact['Name'] + ", Age: " + str(contact['Age']))
-
-
-
-#print("\nTESTING GET PHONE NUMBER BY NAME")
-
-#searches through a list for the specified name and returns their phone number
-def get_phone_number_by_name(contacts, name):
-  for contact_id, contact_info in contacts.items():
-    if contact_info['Name'].lower() == name.lower():
-      return contact_info['PhoneNumber']
-    return None
-      #print(f"Name: {contact_info['Name']}, Phone: {contact_info['PhoneNumber']}")
-
-# usage
-get_phone_number_by_name(contacts, "Daniel")
-
-#print("\nTESTING PRINT SORTED CONTACT LIST BY NAME")
-
-# returns a sorted contact list in alphabetically order
-def sort_contacts_by_name(contacts):
-  sorted_contact_details = sorted(contacts.items(), key=lambda item: item[1]["Name"].lower())
-  return {contact_id: details for contact_id, details in sorted_contact_details}
-
-# usage
-#sorted_contacts = sort_contacts_by_name(contacts)
-#for contact_id, details in sorted_contacts.items():
-  #print(f"Name: {details['Name']}, Phone: {details['PhoneNumber']}")
-
-#print()
-#CLI menue of options for user to input
+# Main menu interface for user to to select options via CLI
 def main_menu():
-    print("\nSelect an option:")
-    print("1. Find a contact")
-    print("2. Get all names in contact list")
-    print("3. Get all contacts sorted by age")
-    print("4. Get phone number by name")
-    print("5. Exit")
+  # print available options
+  print("Available Options:")
+  for option_id, option_details in options.items():
+    print(f"{option_id} - {option_details[1]}")
+  print()
 
-    choice = input("Enter your choice (1-5): ")
+  user_input = input(f"Enter your choice from 1-{len(options)}: ")  # user input
+  print()
 
-    if choice == "1":
-        name_to_search = input("Enter the name to search for: ")
-        found_contact = find_contact(contacts, name_to_search)
-        if found_contact:
-            print(f"Contact found for {name_to_search}:")
-            for key, value in found_contact.items():
-                print(f"{key}: {value}")
-        else:
-            print(f"No contact found for {name_to_search}")
-            
-    if choice == "1":
-      name_to_search = input("Enter the name to search for: ")
-      found_contact = find_contact(contacts, name_to_search)
-      if found_contact:
-          print(f"Contact found for {name_to_search}:")
-          for key, value in found_contact.items():
-              print(f"{key}: {value}")
-      else:
-            print(f"No contact found for {name_to_search}")
+  try:
+    option_number = int(user_input)
+  except ValueError:
+    print("Invalid input; try again.\n")
 
-    elif choice == "2":
-        names_list = get_names(contacts)
-        print("Names in contact list:")
-        for name in names_list:
-            print(name)
+  # check if choice is valid then execute selected option
+  if 0 < option_number < len(options):
+    filtered_contacts = options[option_number][0](contacts)
+    if filtered_contacts is not None and 0 < len(filtered_contacts):
+      print("Showing result(s)...\n")
 
-    elif choice == "3":
-        sorted_contacts = get_contacts_by_age(contacts)
-        print("Contacts sorted by age:")
-        for contact in sorted_contacts:
-            print(f"Name: {contact['Name']}, Age: {contact['Age']}")
+      try:
+        filtered_contact_field = options[option_number][2]
 
-    elif choice == "4":
-        name_to_search = input("Enter the name to get the phone number: ")
-        phone_number = get_phone_number_by_name(contacts, name_to_search)
-        if phone_number:
-            print(f"Phone number for {name_to_search}: {phone_number}")
-        else:
-            print(f"No phone number found for {name_to_search}")
+        for contact in filtered_contacts:
+          for contact_field, contact_value in contact.items():
+            if contact_field == "Name" or contact_field == filtered_contact_field:
+              print(f"{contact_field}: {contact_value}")
+          print()
 
-    elif choice == "5":
-        print("Exiting program...")
-        exit()
+      except IndexError:
+        for contact in filtered_contacts:
+          for contact_field, contact_value in contact.items():
+            print(f"{contact_field}: {contact_value}")
+          print()
 
     else:
-        print("Invalid choice! Please select a number between 1 and 5.")
+      print("No results found.\n")
+  else:
+    print("Invalid number; try again.\n")
+
+  print("Returning to main menu...\n")
+  time.sleep(1)
 
 # Running the main menu
 while True:
