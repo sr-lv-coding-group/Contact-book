@@ -1,10 +1,13 @@
 import sqlite3
 import json
 
+
+
 # collection of functions to perform basic db operations (C.R.U.D.)
 # note: to check validity, sqlite3.complete_statement("SELECT foo FROM bar;")
 
 # connect to DB (create DB if non-existent)
+
 def connect_db(directory=".",db_name=None):
     if (not db_name):
         db_name = input(f">>> Write the name of the database you wish to connect: ")
@@ -19,6 +22,7 @@ def connect_db(directory=".",db_name=None):
         print(f"\tFailure! Unable to create/connect to db: {db_name}"/
               + "\n\n" + NameError)
     return None
+
 
 
 def execute_sql_cmd(cur=None, sql_cmd=None):
@@ -38,6 +42,7 @@ def execute_sql_cmd(cur=None, sql_cmd=None):
 ########################
 # HELPER FUNCTIONS
 ########################
+
 def request_sql_cmd():
     return input(f">>> Please type SQL statement to execute: ")
 
@@ -81,12 +86,14 @@ def initialize_db(db_data=None, db_name=None):
     cur = connect_db(db_name)
     #
     # verify structure is valid for contactbook 
+    #
     return cur
 
 
 def print_menu_options(options):
     for option_id, option in options.items():
         print(f"\t{option_id}: {option['desc']}")
+
 
 
 if __name__ == "__main__":
@@ -120,6 +127,6 @@ if __name__ == "__main__":
                     cur = results
         except ValueError as ve:
             print(f"*** Invalid input. Please select from the available options. {ve}\n\n")
-
          
     print("Exiting... ")
+
